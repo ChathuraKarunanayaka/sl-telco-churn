@@ -2,6 +2,8 @@
 
 MSc Applied Machine Learning assignment. Predicts which mobile customers of a Sri Lankan operator will **leave the network (churn)**, using only their **first month** of usage, compares models from a weak baseline to stacked ensembles, explains the model with **SHAP and LIME**, and serves it in a **Streamlit** app.
 
+**Live app:** https://sl-telco-churn-ck.streamlit.app/
+
 ## 1. Local problem
 
 Sri Lankan mobile operators compete hard, and customers move between networks easily. Keeping a customer is cheaper than winning a new one, so an operator wants an **early warning**: a list of customers likely to leave, early enough to offer them a retention package.
@@ -87,6 +89,8 @@ streamlit run app/app.py
 If `models/model.pkl` does not load on your machine (pickle files depend on operating system and library versions), run `python src/train.py` once.
 
 ## 9. Deployment (Streamlit Community Cloud)
+
+Deployed at **https://sl-telco-churn-ck.streamlit.app/**
 
 1. Push this repository to GitHub (public).
 2. On https://share.streamlit.io choose **Create app**, select the repository, branch `main`, main file `app/app.py`, and Python 3.12 in **Advanced settings**. Streamlit uses the smaller `app/requirements.txt` (only what the app needs).
