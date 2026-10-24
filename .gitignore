@@ -1,0 +1,19 @@
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+.idea/
+.vscode/
+catboost_info/
+# Original Kaggle files (1.3 GB). Rebuild data/raw/customer_first30.csv with src/build_dataset.py
+data/kaggle/
+*.zip
+
+# Submission documents (submitted separately, not part of the code repo)
+*.pptx
+*.docx
+*.pdf
+~$*
+reports/make_report.py
+reports/make_slides*.py
+reports/video_script*.md

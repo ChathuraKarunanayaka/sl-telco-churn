@@ -1,0 +1,415 @@
+{
+ "model_name": "XGBoost",
+ "class_labels": {
+  "0": "Stays",
+  "1": "Churns"
+ },
+ "usage_types": {
+  "app_facebook": "Facebook data (MB per day)",
+  "app_tiktok": "TikTok data (MB per day)",
+  "app_youtube": "YouTube data (MB per day)",
+  "app_whatsapp": "WhatsApp data (MB per day)",
+  "app_helakuru": "Helakuru app data (MB per day)",
+  "app_other": "Other apps data (MB per day)",
+  "pack_data": "Spend on data packs (LKR per day)",
+  "pack_vas": "Spend on value-added services (LKR per day)",
+  "voice_d2d_outgoing": "Outgoing calls, same network (min per day)",
+  "voice_d2nd_outgoing": "Outgoing calls, other networks (min per day)",
+  "voice_d2d_incoming": "Incoming calls, same network (min per day)",
+  "voice_nd2d_incoming": "Incoming calls, other networks (min per day)"
+ },
+ "raw_features": [
+  "app_facebook_d01_10",
+  "app_facebook_d11_20",
+  "app_facebook_d21_30",
+  "app_facebook_active",
+  "app_tiktok_d01_10",
+  "app_tiktok_d11_20",
+  "app_tiktok_d21_30",
+  "app_tiktok_active",
+  "app_youtube_d01_10",
+  "app_youtube_d11_20",
+  "app_youtube_d21_30",
+  "app_youtube_active",
+  "app_whatsapp_d01_10",
+  "app_whatsapp_d11_20",
+  "app_whatsapp_d21_30",
+  "app_whatsapp_active",
+  "app_helakuru_d01_10",
+  "app_helakuru_d11_20",
+  "app_helakuru_d21_30",
+  "app_helakuru_active",
+  "app_other_d01_10",
+  "app_other_d11_20",
+  "app_other_d21_30",
+  "app_other_active",
+  "pack_data_d01_10",
+  "pack_data_d11_20",
+  "pack_data_d21_30",
+  "pack_data_active",
+  "pack_vas_d01_10",
+  "pack_vas_d11_20",
+  "pack_vas_d21_30",
+  "pack_vas_active",
+  "voice_d2d_outgoing_d01_10",
+  "voice_d2d_outgoing_d11_20",
+  "voice_d2d_outgoing_d21_30",
+  "voice_d2d_outgoing_active",
+  "voice_d2nd_outgoing_d01_10",
+  "voice_d2nd_outgoing_d11_20",
+  "voice_d2nd_outgoing_d21_30",
+  "voice_d2nd_outgoing_active",
+  "voice_d2d_incoming_d01_10",
+  "voice_d2d_incoming_d11_20",
+  "voice_d2d_incoming_d21_30",
+  "voice_d2d_incoming_active",
+  "voice_nd2d_incoming_d01_10",
+  "voice_nd2d_incoming_d11_20",
+  "voice_nd2d_incoming_d21_30",
+  "voice_nd2d_incoming_active"
+ ],
+ "ranges": {
+  "app_facebook_d01_10": {
+   "min": 0.0,
+   "max": 435.159,
+   "median": 76.9085
+  },
+  "app_facebook_d11_20": {
+   "min": 0.0,
+   "max": 481.259,
+   "median": 58.051500000000004
+  },
+  "app_facebook_d21_30": {
+   "min": 0.0,
+   "max": 439.816,
+   "median": 43.3245
+  },
+  "app_facebook_active": {
+   "min": 5.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "app_tiktok_d01_10": {
+   "min": 0.0,
+   "max": 378.145,
+   "median": 66.6315
+  },
+  "app_tiktok_d11_20": {
+   "min": 0.0,
+   "max": 431.648,
+   "median": 50.243
+  },
+  "app_tiktok_d21_30": {
+   "min": 0.0,
+   "max": 366.067,
+   "median": 37.126000000000005
+  },
+  "app_tiktok_active": {
+   "min": 4.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "app_youtube_d01_10": {
+   "min": 0.0,
+   "max": 757.045,
+   "median": 122.8435
+  },
+  "app_youtube_d11_20": {
+   "min": 0.0,
+   "max": 745.353,
+   "median": 92.699
+  },
+  "app_youtube_d21_30": {
+   "min": 0.0,
+   "max": 720.529,
+   "median": 67.939
+  },
+  "app_youtube_active": {
+   "min": 5.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "app_whatsapp_d01_10": {
+   "min": 0.0,
+   "max": 60.606,
+   "median": 10.264
+  },
+  "app_whatsapp_d11_20": {
+   "min": 0.0,
+   "max": 57.081,
+   "median": 7.736
+  },
+  "app_whatsapp_d21_30": {
+   "min": 0.0,
+   "max": 56.871,
+   "median": 5.746
+  },
+  "app_whatsapp_active": {
+   "min": 6.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "app_helakuru_d01_10": {
+   "min": 0.0,
+   "max": 59.921,
+   "median": 10.243
+  },
+  "app_helakuru_d11_20": {
+   "min": 0.0,
+   "max": 59.95,
+   "median": 7.746
+  },
+  "app_helakuru_d21_30": {
+   "min": 0.0,
+   "max": 62.68,
+   "median": 5.721
+  },
+  "app_helakuru_active": {
+   "min": 6.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "app_other_d01_10": {
+   "min": 0.763,
+   "max": 726.658,
+   "median": 102.568
+  },
+  "app_other_d11_20": {
+   "min": 0.0,
+   "max": 619.186,
+   "median": 77.602
+  },
+  "app_other_d21_30": {
+   "min": 0.0,
+   "max": 583.154,
+   "median": 56.7065
+  },
+  "app_other_active": {
+   "min": 6.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "pack_data_d01_10": {
+   "min": 0.0,
+   "max": 606.995,
+   "median": 102.683
+  },
+  "pack_data_d11_20": {
+   "min": 0.0,
+   "max": 608.948,
+   "median": 77.691
+  },
+  "pack_data_d21_30": {
+   "min": 0.0,
+   "max": 678.906,
+   "median": 57.187
+  },
+  "pack_data_active": {
+   "min": 3.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "pack_vas_d01_10": {
+   "min": 0.0,
+   "max": 136.33,
+   "median": 20.474
+  },
+  "pack_vas_d11_20": {
+   "min": 0.0,
+   "max": 115.604,
+   "median": 15.492
+  },
+  "pack_vas_d21_30": {
+   "min": 0.0,
+   "max": 129.927,
+   "median": 11.416
+  },
+  "pack_vas_active": {
+   "min": 4.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "voice_d2d_outgoing_d01_10": {
+   "min": 0.0,
+   "max": 134.286,
+   "median": 20.476
+  },
+  "voice_d2d_outgoing_d11_20": {
+   "min": 0.0,
+   "max": 121.01,
+   "median": 15.4865
+  },
+  "voice_d2d_outgoing_d21_30": {
+   "min": 0.0,
+   "max": 123.098,
+   "median": 11.419
+  },
+  "voice_d2d_outgoing_active": {
+   "min": 4.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "voice_d2nd_outgoing_d01_10": {
+   "min": 0.0,
+   "max": 123.289,
+   "median": 20.524
+  },
+  "voice_d2nd_outgoing_d11_20": {
+   "min": 0.0,
+   "max": 127.187,
+   "median": 15.526499999999999
+  },
+  "voice_d2nd_outgoing_d21_30": {
+   "min": 0.0,
+   "max": 119.197,
+   "median": 11.414
+  },
+  "voice_d2nd_outgoing_active": {
+   "min": 5.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "voice_d2d_incoming_d01_10": {
+   "min": 0.0,
+   "max": 136.188,
+   "median": 20.467
+  },
+  "voice_d2d_incoming_d11_20": {
+   "min": 0.0,
+   "max": 127.753,
+   "median": 15.462
+  },
+  "voice_d2d_incoming_d21_30": {
+   "min": 0.0,
+   "max": 117.636,
+   "median": 11.314
+  },
+  "voice_d2d_incoming_active": {
+   "min": 5.0,
+   "max": 30.0,
+   "median": 18.0
+  },
+  "voice_nd2d_incoming_d01_10": {
+   "min": 0.0,
+   "max": 129.332,
+   "median": 20.5
+  },
+  "voice_nd2d_incoming_d11_20": {
+   "min": 0.0,
+   "max": 120.534,
+   "median": 15.484
+  },
+  "voice_nd2d_incoming_d21_30": {
+   "min": 0.0,
+   "max": 119.953,
+   "median": 11.285499999999999
+  },
+  "voice_nd2d_incoming_active": {
+   "min": 4.0,
+   "max": 30.0,
+   "median": 18.0
+  }
+ },
+ "examples": {
+  "Typical customer who stayed": {
+   "app_facebook_d01_10": 79.83,
+   "app_facebook_d11_20": 63.76,
+   "app_facebook_d21_30": 53.06,
+   "app_facebook_active": 19.0,
+   "app_tiktok_d01_10": 69.13,
+   "app_tiktok_d11_20": 54.71,
+   "app_tiktok_d21_30": 45.93,
+   "app_tiktok_active": 19.0,
+   "app_youtube_d01_10": 127.35,
+   "app_youtube_d11_20": 101.16,
+   "app_youtube_d21_30": 83.44,
+   "app_youtube_active": 19.0,
+   "app_whatsapp_d01_10": 10.65,
+   "app_whatsapp_d11_20": 8.44,
+   "app_whatsapp_d21_30": 7.03,
+   "app_whatsapp_active": 19.0,
+   "app_helakuru_d01_10": 10.61,
+   "app_helakuru_d11_20": 8.48,
+   "app_helakuru_d21_30": 7.06,
+   "app_helakuru_active": 19.0,
+   "app_other_d01_10": 106.59,
+   "app_other_d11_20": 84.86,
+   "app_other_d21_30": 69.75,
+   "app_other_active": 19.0,
+   "pack_data_d01_10": 106.52,
+   "pack_data_d11_20": 84.94,
+   "pack_data_d21_30": 70.66,
+   "pack_data_active": 19.0,
+   "pack_vas_d01_10": 21.23,
+   "pack_vas_d11_20": 16.96,
+   "pack_vas_d21_30": 14.04,
+   "pack_vas_active": 19.0,
+   "voice_d2d_outgoing_d01_10": 21.24,
+   "voice_d2d_outgoing_d11_20": 16.88,
+   "voice_d2d_outgoing_d21_30": 14.04,
+   "voice_d2d_outgoing_active": 19.0,
+   "voice_d2nd_outgoing_d01_10": 21.22,
+   "voice_d2nd_outgoing_d11_20": 16.92,
+   "voice_d2nd_outgoing_d21_30": 13.9,
+   "voice_d2nd_outgoing_active": 19.0,
+   "voice_d2d_incoming_d01_10": 21.24,
+   "voice_d2d_incoming_d11_20": 16.94,
+   "voice_d2d_incoming_d21_30": 13.99,
+   "voice_d2d_incoming_active": 19.0,
+   "voice_nd2d_incoming_d01_10": 21.26,
+   "voice_nd2d_incoming_d11_20": 16.85,
+   "voice_nd2d_incoming_d21_30": 13.93,
+   "voice_nd2d_incoming_active": 19.0
+  },
+  "Typical customer who churned": {
+   "app_facebook_d01_10": 68.42,
+   "app_facebook_d11_20": 42.87,
+   "app_facebook_d21_30": 17.92,
+   "app_facebook_active": 17.0,
+   "app_tiktok_d01_10": 59.28,
+   "app_tiktok_d11_20": 37.17,
+   "app_tiktok_d21_30": 15.03,
+   "app_tiktok_active": 17.0,
+   "app_youtube_d01_10": 109.84,
+   "app_youtube_d11_20": 68.49,
+   "app_youtube_d21_30": 28.38,
+   "app_youtube_active": 17.0,
+   "app_whatsapp_d01_10": 9.14,
+   "app_whatsapp_d11_20": 5.71,
+   "app_whatsapp_d21_30": 2.42,
+   "app_whatsapp_active": 17.0,
+   "app_helakuru_d01_10": 9.13,
+   "app_helakuru_d11_20": 5.64,
+   "app_helakuru_d21_30": 2.31,
+   "app_helakuru_active": 17.0,
+   "app_other_d01_10": 91.18,
+   "app_other_d11_20": 56.99,
+   "app_other_d21_30": 23.14,
+   "app_other_active": 17.0,
+   "pack_data_d01_10": 90.92,
+   "pack_data_d11_20": 56.84,
+   "pack_data_d21_30": 23.02,
+   "pack_data_active": 17.0,
+   "pack_vas_d01_10": 18.23,
+   "pack_vas_d11_20": 11.29,
+   "pack_vas_d21_30": 4.74,
+   "pack_vas_active": 18.0,
+   "voice_d2d_outgoing_d01_10": 18.28,
+   "voice_d2d_outgoing_d11_20": 11.3,
+   "voice_d2d_outgoing_d21_30": 4.61,
+   "voice_d2d_outgoing_active": 17.0,
+   "voice_d2nd_outgoing_d01_10": 18.35,
+   "voice_d2nd_outgoing_d11_20": 11.43,
+   "voice_d2nd_outgoing_d21_30": 4.78,
+   "voice_d2nd_outgoing_active": 17.0,
+   "voice_d2d_incoming_d01_10": 18.22,
+   "voice_d2d_incoming_d11_20": 11.23,
+   "voice_d2d_incoming_d21_30": 4.56,
+   "voice_d2d_incoming_active": 17.0,
+   "voice_nd2d_incoming_d01_10": 18.31,
+   "voice_nd2d_incoming_d11_20": 11.5,
+   "voice_nd2d_incoming_d21_30": 4.69,
+   "voice_nd2d_incoming_active": 17.0
+  }
+ }
+}

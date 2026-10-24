@@ -1,0 +1,88 @@
+,mean_abs_shap
+apps ratio,0.3354
+apps total days 21-30,0.3189
+Facebook: days 1-10,0.311
+Helakuru app: days 1-10,0.3084
+"Incoming calls, other networks: days 1-10",0.3045
+data packs: days 1-10,0.3005
+voice total days 21-30,0.2931
+TikTok: days 1-10,0.2877
+value-added services: days 1-10,0.2758
+"Outgoing calls, same network: days 1-10",0.2708
+voice ratio,0.2633
+Other apps: days 1-10,0.2589
+WhatsApp: days 1-10,0.2566
+Facebook: active days,0.2487
+YouTube: days 1-10,0.2484
+"Incoming calls, same network: active days",0.2453
+Helakuru app: end/start ratio,0.2392
+"Incoming calls, same network: days 1-10",0.2321
+WhatsApp: active days,0.2246
+data packs: active days,0.223
+WhatsApp: end/start ratio,0.2225
+"Outgoing calls, same network: active days",0.2215
+TikTok: active days,0.2207
+"Outgoing calls, other networks: days 1-10",0.22
+Other apps: active days,0.2199
+YouTube: active days,0.2177
+"Incoming calls, other networks: active days",0.2126
+"Outgoing calls, same network: end/start ratio",0.2103
+value-added services: end/start ratio,0.2055
+"Outgoing calls, other networks: active days",0.2008
+Helakuru app: active days,0.1992
+value-added services: active days,0.1968
+value-added services: days 11-20,0.1941
+Helakuru app: days 21-30,0.1894
+WhatsApp: days 11-20,0.1843
+TikTok: days 11-20,0.1829
+WhatsApp: days 21-30,0.1812
+"Incoming calls, same network: days 11-20",0.1795
+value-added services: days 21-30,0.1758
+TikTok: end/start ratio,0.1732
+packs ratio,0.1587
+packs total days 21-30,0.1554
+"Outgoing calls, other networks: days 11-20",0.1529
+Helakuru app: days 11-20,0.1527
+"Incoming calls, same network: days 21-30",0.1526
+"Incoming calls, other networks: days 21-30",0.1428
+Facebook: end/start ratio,0.1422
+"Incoming calls, same network: end/start ratio",0.1406
+TikTok: days 21-30,0.14
+YouTube: days 11-20,0.1387
+"Outgoing calls, same network: days 11-20",0.1377
+"Outgoing calls, other networks: days 21-30",0.135
+"Incoming calls, other networks: days 11-20",0.1337
+Facebook: days 11-20,0.1332
+Facebook: days 21-30,0.1332
+Other apps: days 21-30,0.1305
+YouTube: end/start ratio,0.1295
+Other apps: end/start ratio,0.1268
+"Outgoing calls, same network: days 21-30",0.1183
+Other apps: days 11-20,0.1175
+Facebook: change,0.1145
+"Outgoing calls, other networks: end/start ratio",0.1132
+YouTube: days 21-30,0.113
+data packs: days 11-20,0.11
+"Incoming calls, other networks: change",0.1087
+voice total days 11-20,0.1044
+value-added services: change,0.1015
+apps total days 11-20,0.0996
+data packs: change,0.0987
+voice total days 1-10,0.0915
+data packs: days 21-30,0.0909
+"Incoming calls, other networks: end/start ratio",0.0901
+WhatsApp: change,0.0893
+"Outgoing calls, other networks: change",0.0879
+Helakuru app: change,0.0852
+"Outgoing calls, same network: change",0.0801
+TikTok: change,0.08
+voice active mean,0.0756
+YouTube: change,0.0731
+apps active mean,0.0721
+"Incoming calls, same network: change",0.0718
+packs total days 11-20,0.0708
+packs active mean,0.0565
+apps total days 1-10,0.0564
+data packs: end/start ratio,0.0526
+Other apps: change,0.0493
+packs total days 1-10,0.0207

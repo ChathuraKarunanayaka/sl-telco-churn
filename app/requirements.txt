@@ -1,0 +1,9 @@
+# Packages needed only to RUN the app (used by Streamlit Community Cloud).
+# Training needs the full list in the root requirements.txt.
+pandas==3.0.5
+numpy==2.5.3
+scikit-learn==1.9.1
+xgboost==3.4.1
+shap==0.54.1
+matplotlib==3.11.2
+streamlit==1.65.0
