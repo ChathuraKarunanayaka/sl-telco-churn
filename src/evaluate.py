@@ -1,4 +1,5 @@
 """Comparison figures from the trained models. Run:  python src/evaluate.py  (after train.py)"""
+import json
 import pickle
 
 import matplotlib
@@ -31,9 +32,9 @@ def main():
         ax.set_xlim(0, 1.12); ax.set_title(title); ax.grid(axis="y", visible=False)
     axes[0].invert_yaxis()
     handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in FAMILY_COLORS.values()]
-    fig.legend(handles, ["Baseline / weak", "Single tree", "Bagging", "Boosting", "Voting / stacking"],
-               loc="lower center", ncols=5, frameon=False)
-    fig.suptitle("Test-set comparison: from weak models to ensembles (13,000 customers)",
+    fig.legend(handles, ["EBM (new algorithm)", "Baseline / weak", "Single tree", "Bagging", "Boosting", "Voting / stacking"],
+               loc="lower center", ncols=6, frameon=False)
+    fig.suptitle("Test-set comparison: the new algorithm (EBM) against models from the lectures (13,000 customers)",
                  x=0.01, ha="left", fontsize=12, fontweight="bold")
     fig.tight_layout(rect=(0, 0.06, 1, 1))
     fig.savefig(config.FIGURES_DIR / "model_comparison.png"); plt.close(fig)
@@ -44,10 +45,13 @@ def main():
     test = test[~test["customer_id"].isin(holdout["customer_id"])]
     X, y = test[RAW_FEATURES], test[config.TARGET]
     models = {"Logistic Regression (weak)": pickle.load(open(config.MODELS_DIR / "logistic_regression.pkl", "rb")),
-              f"{best_name} (selected)": pickle.load(open(config.MODEL_FILE, "rb"))}
+              f"{best_name.split(' (')[0]} (selected, new algorithm)": pickle.load(open(config.MODEL_FILE, "rb"))}
+    cms = {}
     fig, axes = plt.subplots(1, 3, figsize=(15, 4.3), gridspec_kw={"width_ratios": [1, 1, 1.3]})
     for ax, (name, m) in zip(axes[:2], models.items()):
         cm = confusion_matrix(y, m.predict(X))
+        key = "Logistic Regression" if name.startswith("Logistic") else best_name
+        cms[key] = {"tn": int(cm[0, 0]), "fp": int(cm[0, 1]), "fn": int(cm[1, 0]), "tp": int(cm[1, 1])}
         share = cm / cm.sum(axis=1, keepdims=True)
         ax.imshow(share, cmap="Blues", vmin=0, vmax=1)
         for i in range(2):
@@ -65,7 +69,9 @@ def main():
     axes[2].set_title("Precision-recall curve"); axes[2].legend(loc="lower left"); axes[2].set_ylim(0, 1.02)
     fig.tight_layout()
     fig.savefig(config.FIGURES_DIR / "weak_vs_best.png"); plt.close(fig)
-    print("Saved model_comparison.png and weak_vs_best.png")
+    (config.REPORTS_DIR / "confusion_matrices.json").write_text(json.dumps(cms, indent=1))
+    print(json.dumps(cms))
+    print("Saved model_comparison.png, weak_vs_best.png and confusion_matrices.json")
 
 
 if __name__ == "__main__":

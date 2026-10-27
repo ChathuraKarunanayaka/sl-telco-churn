@@ -3,9 +3,10 @@ import matplotlib.pyplot as plt
 
 # Fixed colour for each model, used in the same order in every figure.
 # Colour by model family, used the same way in every figure.
-FAMILY_COLORS = {"baseline": "#898781", "single": "#e87ba4", "bagging": "#2a78d6",
+FAMILY_COLORS = {"new": "#6a3fb5", "baseline": "#898781", "single": "#e87ba4", "bagging": "#2a78d6",
                  "boosting": "#eb6834", "ensemble": "#1baf7a"}
 MODEL_FAMILY = {
+    "EBM (new algorithm)": "new",
     "Majority baseline": "baseline", "Logistic Regression": "baseline", "Decision Tree": "single",
     "Random Forest": "bagging", "AdaBoost": "boosting", "XGBoost": "boosting", "LightGBM": "boosting",
     "CatBoost": "boosting", "Soft Voting (XGB + LGBM + CatBoost)": "ensemble",

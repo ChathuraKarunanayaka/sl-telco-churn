@@ -25,5 +25,13 @@
   "min_samples_leaf": 2,
   "max_features": "sqrt",
   "max_samples": 0.7
+ },
+ "EBM": {
+  "learning_rate": 0.015,
+  "interactions": 100,
+  "max_bins": 256,
+  "max_leaves": 2,
+  "min_samples_leaf": 4,
+  "outer_bags": 8
  }
 }

@@ -9,7 +9,6 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import shap
 import streamlit as st
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,16 +24,14 @@ WINDOW_LABELS = {"d01_10": "Days 1-10", "d11_20": "Days 11-20", "d21_30": "Days 
 
 @st.cache_resource
 def load():
-    """Pickle loader: the full pipeline (feature engineering + model) and its metadata."""
+    """Pickle loader: the full pipeline (feature engineering + EBM model) and its metadata."""
     model = pickle.load(open(config.MODEL_FILE, "rb"))
     info = json.loads(config.FEATURE_INFO_FILE.read_text())
-    inner = model[-1]
-    if hasattr(inner, "named_estimators_"):                 # voting / stacking: explain a tree member
-        inner = next((inner.named_estimators_[k] for k in ("lgbm", "xgb", "cat")
-                      if k in inner.named_estimators_), None)
-    explainer = (shap.TreeExplainer(inner.get_booster() if hasattr(inner, "get_booster") else inner)
-                 if inner is not None else None)
-    return model, info, explainer
+    return model, info
+
+
+def term_label(name):
+    return " x ".join(readable(p.strip()) for p in name.split(" & "))
 
 
 def fill(values: dict):
@@ -49,7 +46,7 @@ def load_holdout():
 
 
 try:
-    model, info, explainer = load()
+    model, info = load()
 except Exception as error:
     st.error("models/model.pkl could not be loaded on this machine. Pickle files depend on the "
              "operating system and library versions. Run `python src/train.py` once, then reload.")
@@ -64,8 +61,9 @@ st.title("📶 Telco Churn Early Warning")
 st.markdown(
     "Predicts whether a mobile customer will **leave the network (churn)**, using only their "
     "**first month** of usage. Built for an MSc Applied Machine Learning assignment on a Sri Lankan "
-    f"telco dataset (65,005 real anonymised customers, Kaggle).  \n**Model:** {info['model_name']}, "
-    "loaded from `models/model.pkl`.")
+    f"telco dataset (65,005 real anonymised customers, Kaggle).  \n**Model:** {info['model_name']}: "
+    "an Explainable Boosting Machine, a glassbox model that is as accurate as XGBoost but shows its own "
+    "reasons. Loaded from `models/model.pkl`.")
 
 c1, c2, c3 = st.columns(3)
 c1.button("Load typical customer who stayed", on_click=lambda: (fill(info["examples"]["Typical customer who stayed"]),
@@ -101,27 +99,30 @@ if go:
     left.markdown(f"<div style='background:{colour};color:white;padding:14px 18px;border-radius:10px;"
                   f"font-size:1.4rem;font-weight:700;display:inline-block'>"
                   f"{'⚠️ Likely to churn' if churn else '✅ Likely to stay'}</div>", unsafe_allow_html=True)
-    left.metric("Churn probability", f"{prob:.1%}")
+    shown = ">99.9%" if prob > 0.999 else "<0.1%" if prob < 0.001 else f"{prob:.1%}"
+    left.metric("Churn probability", shown)
     left.caption("Suggested action: " + ("contact this customer with a retention offer."
                                           if churn else "no action needed."))
     if st.session_state.get("truth") is not None:
         truth = info["class_labels"][str(st.session_state["truth"])]
         left.info(f"Held-out customer: the real outcome was **{truth}**.")
 
-    if explainer is not None:
-        Xf = model[:-1].transform(row)
-        sv = explainer(Xf)
-        vals = sv.values[0] if sv.values.ndim == 2 else sv.values[0, :, 1]
-        top = pd.Series(vals, index=[readable(c) for c in Xf.columns])
-        top = top.reindex(top.abs().sort_values(ascending=False).index)[:10][::-1]
-        fig, ax = plt.subplots(figsize=(7, 4.2))
-        ax.barh(top.index, top.values, color=[ORANGE if v > 0 else BLUE for v in top.values], height=0.6)
-        ax.axvline(0, color=INK, linewidth=0.8)
-        ax.set_title("Why? Top 10 reasons (SHAP)", loc="left")
-        ax.set_xlabel("Pushes towards churn (orange) or staying (blue)")
-        ax.grid(axis="y", visible=False)
-        right.pyplot(fig)
-        plt.close(fig)
+    # EBM is a glassbox: the score is the sum of one contribution per feature (or feature pair),
+    # so the reasons below are read straight from the model, not approximated.
+    ebm = model[-1]
+    Xf = model[:-1].transform(row)
+    contrib = pd.Series(ebm.eval_terms(Xf)[0], index=[term_label(n) for n in ebm.term_names_])
+    top = contrib.reindex(contrib.abs().sort_values(ascending=False).index)[:10][::-1]
+    fig, ax = plt.subplots(figsize=(7, 4.2))
+    ax.barh(top.index, top.values, color=[ORANGE if v > 0 else BLUE for v in top.values], height=0.6)
+    ax.axvline(0, color=INK, linewidth=0.8)
+    ax.set_title("Why? Top 10 reasons (EBM contributions)", loc="left")
+    ax.set_xlabel("Pushes towards churn (orange) or staying (blue), log-odds")
+    ax.grid(axis="y", visible=False)
+    right.pyplot(fig)
+    plt.close(fig)
+    right.caption("EBM adds one contribution per feature to get the final score, so these reasons "
+                  "are exact, not estimated.")
 
 st.caption("Data: Real World Customer Churn Dataset in Telco Domain (Kaggle, CC0). Only days 1-30 are used, "
            "to avoid leakage from later days when churned customers have already stopped using the service.")

@@ -1,5 +1,5 @@
 {
- "model_name": "XGBoost",
+ "model_name": "EBM (new algorithm)",
  "class_labels": {
   "0": "Stays",
   "1": "Churns"

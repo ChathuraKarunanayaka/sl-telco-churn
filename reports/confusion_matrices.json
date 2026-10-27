@@ -1,0 +1,14 @@
+{
+ "Logistic Regression": {
+  "tn": 9168,
+  "fp": 855,
+  "fn": 228,
+  "tp": 2749
+ },
+ "EBM (new algorithm)": {
+  "tn": 9856,
+  "fp": 167,
+  "fn": 81,
+  "tp": 2896
+ }
+}
